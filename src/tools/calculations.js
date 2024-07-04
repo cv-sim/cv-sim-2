@@ -10,7 +10,7 @@ const FARADAY_CONSTANT = 96485
 const DEFAULT_DISTANCE_INCREMENTS = 50
 const DEFAULT_TIME_INCREMENTS = 200
 
-export default function calculateCyclicVoltammogram(parameters, options = {}) {
+export function calculateCyclicVoltammogram(parameters, options = {}) {
   const { elCount, diffCoef, kStd, kFirstOrder, transCoef, area, temp } = parameters
 
   const scanRate = parameters.scanRate / 1000
@@ -60,7 +60,6 @@ export default function calculateCyclicVoltammogram(parameters, options = {}) {
         const jred = -jox
 
         dataset[i].y = -jox * elCount * FARADAY_CONSTANT * area
-        console.log(i, jox, dataset[i].y)
 
         coxArray[i][j] = coxArray[i][1] + (jox * xInc) / diffCoef
         credArray[i][j] = credArray[i][1] + (jred * xInc) / diffCoef
@@ -89,8 +88,6 @@ export default function calculateCyclicVoltammogram(parameters, options = {}) {
       }
     }
   }
-
-  console.log(dataset)
 
   return dataset
 }

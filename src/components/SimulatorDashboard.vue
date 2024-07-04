@@ -1,7 +1,12 @@
 <script setup>
-import CyclicVoltammogram from '@/components/CyclicVoltammogram.vue'
+import CyclicVoltammogram from '@/components/main/CyclicVoltammogram.vue'
+import InputParameters from '@/components/main/InputParameters.vue'
 </script>
 
 <template>
-  <CyclicVoltammogram />
+  <div class="flex max-md:flex-col-reverse">
+    <InputParameters />
+    <CyclicVoltammogram />
+  </div>
 </template>
+./common/InputParameters.vue
