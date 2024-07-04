@@ -9,8 +9,8 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="sm:flex">
-    <label v-text="props.label" class="w-64" />
+  <div class="sm:flex gap-x-4">
+    <label class="text-nowrap w-60" v-html="props.label" />
     <input
       type="range"
       :min="props.min"
@@ -25,6 +25,7 @@ const props = defineProps({
       :min="props.min"
       :max="props.max"
       :step="props.step"
+      class="border border-black rounded w-24"
       @input="$emit('update:modelValue', $event.target.value)"
     />
   </div>

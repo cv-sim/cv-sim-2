@@ -9,4 +9,3 @@ import InputParameters from '@/components/main/InputParameters.vue'
     <CyclicVoltammogram />
   </div>
 </template>
-./common/InputParameters.vue

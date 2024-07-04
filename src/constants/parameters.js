@@ -4,11 +4,11 @@ export default {
   vStart: 200,
   vSwitch: -300,
   elCount: 1,
-  cStart: 6 * Math.pow(10, -5),
-  diffCoef: Math.pow(10, -5),
+  cStart: 6.1 * 10 ** -5,
+  diffCoef: 10 ** -5,
   kStd: 1,
   kFirstOrder: 0.075,
   transCoef: 0.5,
-  area: 2.54 * Math.pow(10, -2),
+  area: 2.54 * 10 ** -2,
   temp: 293.15
 }
