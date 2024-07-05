@@ -1,12 +1,25 @@
 <script setup>
 import { useGraphStore } from '@/stores/graph'
 import InputSlider from '@/components/common/InputSlider.vue'
+import InputSelect from '@/components/common/InputSelect.vue'
 
 const store = useGraphStore()
+
+const seriesOptions = Object.entries(store.datasets).map(([key, value]) => ({
+  text: value.title,
+  value: key
+}))
 </script>
 
 <template>
   <div class="flex flex-col gap-y-4 p-2">
+    <div class="flex flex-col gap-y-2">
+      <InputSelect label="<b>Series:</b>" v-model="store.selectedID" :options="seriesOptions">
+        <template #after-select>
+          <button>Add Series</button>
+        </template>
+      </InputSelect>
+    </div>
     <div class="flex flex-col gap-y-2">
       <InputSlider
         label="Scan Rate (mV/s)"

@@ -31,7 +31,7 @@ function transformValue(value) {
         :min="props.min"
         :max="props.max"
         :step="props.step"
-        class="border border-black rounded w-48 px-1"
+        class="w-48"
         @input="$emit('update:modelValue', $event.target.value)"
       />
     </div>
