@@ -17,6 +17,7 @@ const data = computed(() => ({
 
 const options = reactive({
   responsive: true,
+  maintainAspectRatio: false,
   showLine: true,
   elements: {
     point: {
@@ -58,7 +59,7 @@ const options = reactive({
 </script>
 
 <template>
-  <div class="w-full">
+  <div>
     <Scatter :data="data" :options="options" />
   </div>
 </template>
