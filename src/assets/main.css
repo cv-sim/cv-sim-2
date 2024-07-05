@@ -5,14 +5,16 @@
 @tailwind utilities;
 
 select,
-input[type='number'] {
+input[type='number'],
+button {
   @apply border border-black rounded;
 }
 
-input[type='number'] {
+input[type='number'],
+button {
   @apply px-1;
 }
 
 button {
-  @apply border border-black rounded bg-slate-300 hover:bg-slate-400 transition-all;
+  @apply bg-slate-300 hover:bg-slate-400 transition-all;
 }
