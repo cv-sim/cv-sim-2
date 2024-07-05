@@ -2,13 +2,19 @@
 import { useGraphStore } from '@/stores/graph'
 import InputSlider from '@/components/common/InputSlider.vue'
 import InputSelect from '@/components/common/InputSelect.vue'
+import SeriesModal from '@/components/common/SeriesModal.vue'
+import { computed, ref } from 'vue'
 
 const store = useGraphStore()
 
-const seriesOptions = Object.entries(store.datasets).map(([key, value]) => ({
-  text: value.title,
-  value: key
-}))
+const seriesOptions = computed(() =>
+  Object.entries(store.datasets).map(([key, value]) => ({
+    text: value.title,
+    value: key
+  }))
+)
+
+const seriesModalOpen = ref(false)
 </script>
 
 <template>
@@ -16,7 +22,11 @@ const seriesOptions = Object.entries(store.datasets).map(([key, value]) => ({
     <div class="flex flex-col gap-y-2">
       <InputSelect label="<b>Series:</b>" v-model="store.selectedID" :options="seriesOptions">
         <template #after-select>
-          <button>Add Series</button>
+          <button @click="store.removeSeries(store.selectedID)">Remove</button>
+          <div>
+            <button @click="seriesModalOpen = !seriesModalOpen">Add New</button>
+            <SeriesModal @close="seriesModalOpen = false" :visible="seriesModalOpen" class="mt-1" />
+          </div>
         </template>
       </InputSelect>
     </div>

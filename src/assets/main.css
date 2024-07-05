@@ -5,16 +5,26 @@
 @tailwind utilities;
 
 select,
-input[type='number'],
+input,
 button {
   @apply border border-black rounded;
 }
 
-input[type='number'],
+input,
 button {
   @apply px-1;
 }
 
 button {
   @apply bg-slate-300 hover:bg-slate-400 transition-all;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }

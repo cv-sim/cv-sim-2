@@ -14,6 +14,19 @@ export const useGraphStore = defineStore('graphStore', {
       }
     }
   },
+  actions: {
+    addSeries(title, color) {
+      const id = Math.random().toString(36).substring(2, 7)
+      this.datasets[id] = {
+        title,
+        color,
+        parameters: { ...DEFAULT_PARAMETERS }
+      }
+    },
+    removeSeries(id) {
+      delete this.datasets[id]
+    }
+  },
   getters: {
     selectedDataset() {
       return this.datasets[this.selectedID] || null
