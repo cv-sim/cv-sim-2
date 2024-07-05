@@ -7,7 +7,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="flex gap-4">
+  <div class="flex flex-wrap gap-4">
     <label v-html="props.label" />
     <select
       :value="props.modelValue"

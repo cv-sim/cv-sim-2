@@ -18,11 +18,13 @@ const seriesModalOpen = ref(false)
 </script>
 
 <template>
-  <div class="flex flex-col gap-y-4 p-2">
-    <div class="flex flex-col gap-y-2">
+  <div class="flex flex-col bg-slate-100 border-2 border-black rounded">
+    <div class="flex flex-col gap-y-2 p-4">
       <InputSelect label="<b>Series:</b>" v-model="store.selectedID" :options="seriesOptions">
         <template #after-select>
-          <button @click="store.removeSeries(store.selectedID)">Remove</button>
+          <button @click="store.removeSeries(store.selectedID)" :disabled="store.count <= 1">
+            Remove
+          </button>
           <div>
             <button @click="seriesModalOpen = !seriesModalOpen">Add New</button>
             <SeriesModal @close="seriesModalOpen = false" :visible="seriesModalOpen" class="mt-1" />
@@ -30,7 +32,7 @@ const seriesModalOpen = ref(false)
         </template>
       </InputSelect>
     </div>
-    <div class="flex flex-col gap-y-2">
+    <div class="flex flex-col gap-y-2 border-t-2 border-black p-4">
       <InputSlider
         label="Scan Rate (mV/s)"
         min="0"

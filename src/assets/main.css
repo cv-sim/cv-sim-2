@@ -10,18 +10,25 @@ button {
   @apply border border-black rounded;
 }
 
-input,
-button {
+input {
   @apply px-1;
 }
 
 button {
-  @apply bg-slate-300 hover:bg-slate-400 transition-all;
+  @apply bg-slate-300 transition-all px-4;
+
+  &:not(:disabled) {
+    @apply hover:bg-slate-400;
+  }
+
+  &:disabled {
+    @apply cursor-default bg-slate-200 text-slate-600 border-slate-600;
+  }
 }
 
 .v-enter-active,
 .v-leave-active {
-  transition: opacity 0.5s ease;
+  transition: opacity 0.3s ease;
 }
 
 .v-enter-from,

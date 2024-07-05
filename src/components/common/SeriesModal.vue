@@ -1,6 +1,6 @@
 <script setup>
 import { useGraphStore } from '@/stores/graph'
-import { ref } from 'vue'
+import { ref, computed, watch } from 'vue'
 
 const props = defineProps({
   visible: Boolean
@@ -13,10 +13,22 @@ const store = useGraphStore()
 const name = ref('')
 const color = ref('')
 
+function reset() {
+  name.value = ''
+  color.value = ''
+}
+
 function addSeries() {
   store.addSeries(name.value, color.value)
   emit('close')
+  reset()
 }
+
+watch(() => props.visible, reset)
+
+const disableAdding = computed(() => {
+  return !name.value || !color.value
+})
 </script>
 
 <template>
@@ -31,7 +43,7 @@ function addSeries() {
           <label class="w-12">Color</label>
           <input type="color" v-model="color" />
         </div>
-        <button @click="addSeries()">Add</button>
+        <button @click="addSeries()" :disabled="disableAdding" class="self-center">Add</button>
       </div>
     </div>
   </Transition>

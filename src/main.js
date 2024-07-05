@@ -6,6 +6,8 @@ import { Chart, registerables } from 'chart.js'
 
 import App from './App.vue'
 
+Chart.defaults.color = '#000000'
+Chart.defaults.font.size = 15
 Chart.register(...registerables)
 
 const app = createApp(App)

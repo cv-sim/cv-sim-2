@@ -7,11 +7,12 @@ import { calculateCyclicVoltammogram } from '@/tools/calculations.js'
 const store = useGraphStore()
 
 const data = computed(() => ({
-  datasets: Object.values(store.datasets).map((dataset) => ({
+  datasets: Object.entries(store.datasets).map(([id, dataset]) => ({
     label: dataset.title,
     borderColor: dataset.color,
     backgroundColor: dataset.color,
-    data: calculateCyclicVoltammogram(dataset.parameters)
+    data: calculateCyclicVoltammogram(dataset.parameters),
+    order: id === store.selectedID ? 0 : 1
   }))
 }))
 
@@ -59,7 +60,7 @@ const options = reactive({
 </script>
 
 <template>
-  <div>
+  <div class="p-4 border-2 border-black rounded bg-slate-100">
     <Scatter :data="data" :options="options" />
   </div>
 </template>
