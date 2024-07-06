@@ -44,7 +44,8 @@ const options = reactive({
       },
       ticks: {
         callback: (value) => value.toFixed(3)
-      }
+      },
+      reverse: true
     },
     y: {
       title: {
