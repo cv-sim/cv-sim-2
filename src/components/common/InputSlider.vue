@@ -14,7 +14,7 @@ function transformValue(value) {
 
 <template>
   <div class="flex max-sm:flex-col sm:gap-4">
-    <label class="sm:w-80" v-html="props.label" />
+    <label class="sm:w-96" v-html="props.label" />
     <div class="flex gap-4 w-full">
       <input
         type="range"
@@ -25,15 +25,17 @@ function transformValue(value) {
         class="w-full"
         @input="$emit('update:modelValue', $event.target.value)"
       />
-      <input
-        type="number"
-        :value="transformValue(modelValue)"
-        :min="props.min"
-        :max="props.max"
-        :step="props.step"
-        class="w-48"
-        @input="$emit('update:modelValue', $event.target.value)"
-      />
+      <div>
+        <input
+          type="number"
+          :value="transformValue(modelValue)"
+          :min="props.min"
+          :max="props.max"
+          :step="props.step"
+          class="w-28 self-center"
+          @input="$emit('update:modelValue', $event.target.value)"
+        />
+      </div>
     </div>
   </div>
 </template>
