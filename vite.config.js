@@ -7,6 +7,12 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [
     vue(),
+    {
+      name: 'html-transform',
+      transformIndexHtml(html) {
+        return html.replace(/\/assets/g, './assets')
+      }
+    }
   ],
   resolve: {
     alias: {
