@@ -31,6 +31,16 @@ export const useGraphStore = defineStore('graphStore', {
         this.selectedID = Object.keys(this.datasets).find((datasetID) => datasetID !== id)
       }
       delete this.datasets[id]
+    },
+    reset() {
+      this.selectedID = 'default'
+      this.datasets = {
+        default: {
+          title: 'Demo',
+          color: '#800000',
+          parameters: { ...DEFAULT_PARAMETERS }
+        }
+      }
     }
   },
   getters: {

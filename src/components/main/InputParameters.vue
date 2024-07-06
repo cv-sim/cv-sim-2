@@ -4,9 +4,17 @@ import InputSlider from '@/components/common/InputSlider.vue'
 import InputSelect from '@/components/common/InputSelect.vue'
 import SeriesModal from '@/components/common/SeriesModal.vue'
 import CollapsibleGroup from '@/components/common/CollapsibleGroup.vue'
-import { computed, ref } from 'vue'
+import { computed, ref, reactive } from 'vue'
 
 const store = useGraphStore()
+
+const seriesModalOpen = ref(false)
+const groupVisibilities = reactive({
+  halfReaction: false,
+  triangleWaveform: false,
+  experimentalConditions: false,
+  ecMechanism: false
+})
 
 const seriesOptions = computed(() =>
   Object.entries(store.datasets).map(([key, value]) => ({
@@ -14,14 +22,25 @@ const seriesOptions = computed(() =>
     value: key
   }))
 )
+const allGroupsExpanded = computed(() => Object.values(groupVisibilities).every(Boolean))
+const allGroupsCollapsed = computed(() => Object.values(groupVisibilities).every((value) => !value))
 
-const seriesModalOpen = ref(false)
+function toggleGroupVisibilities(value) {
+  Object.keys(groupVisibilities).forEach((key) => (groupVisibilities[key] = value))
+}
+
+function reset() {
+  store.reset()
+}
 </script>
 
 <template>
   <div class="flex flex-col bg-slate-100 border-2 border-black rounded">
     <div class="flex flex-col gap-y-2 p-4">
-      <span class="font-bold">Graph Settings</span>
+      <div class="flex gap-4 mb-2">
+        <span class="font-bold">Graph Settings</span>
+        <button @click="reset">Reset</button>
+      </div>
       <InputSelect label="Series" v-model="store.selectedID" :options="seriesOptions">
         <template #after-select>
           <button @click="store.removeSeries(store.selectedID)" :disabled="store.count <= 1">
@@ -35,8 +54,16 @@ const seriesModalOpen = ref(false)
       </InputSelect>
     </div>
     <div class="flex flex-col gap-y-4 border-t-2 border-black p-4">
-      <span class="font-bold">Input Parameters</span>
-      <CollapsibleGroup title="Half-Reaction">
+      <div class="flex gap-4">
+        <span class="font-bold">Input Parameters</span>
+        <button @click="toggleGroupVisibilities(true)" :disabled="allGroupsExpanded">
+          Expand All
+        </button>
+        <button @click="toggleGroupVisibilities(false)" :disabled="allGroupsCollapsed">
+          Collapse All
+        </button>
+      </div>
+      <CollapsibleGroup v-model="groupVisibilities.halfReaction" title="Half Reaction">
         <InputSlider
           label="Std. Reduction Potential (mV)"
           min="-750"
@@ -73,7 +100,7 @@ const seriesModalOpen = ref(false)
           v-model="store.selectedParameters.diffCoef"
         />
       </CollapsibleGroup>
-      <CollapsibleGroup title="Triangle Waveform">
+      <CollapsibleGroup v-model="groupVisibilities.triangleWaveform" title="Triangle Waveform">
         <InputSlider
           label="Starting Potential (mV)"
           min="-1000"
@@ -96,7 +123,10 @@ const seriesModalOpen = ref(false)
           v-model="store.selectedParameters.scanRate"
         />
       </CollapsibleGroup>
-      <CollapsibleGroup title="Experimental Conditions">
+      <CollapsibleGroup
+        v-model="groupVisibilities.experimentalConditions"
+        title="Experimental Conditions"
+      >
         <InputSlider
           label="Initial Concentration (M)"
           min="0"
@@ -119,7 +149,7 @@ const seriesModalOpen = ref(false)
           v-model="store.selectedParameters.temp"
         />
       </CollapsibleGroup>
-      <CollapsibleGroup title="EC Mechanism">
+      <CollapsibleGroup v-model="groupVisibilities.ecMechanism" title="EC Mechanism">
         <InputSlider
           label="1<sup>st</sup> Order Rate Constant (s<sup>-1</sup>)"
           min="0"

@@ -1,4 +1,4 @@
-export default {
+export default Object.freeze({
   scanRate: 40,
   vStd: 13,
   vStart: 200,
@@ -7,8 +7,8 @@ export default {
   cStart: 6.1 * 10 ** -5,
   diffCoef: 10 ** -5,
   kStd: 1,
-  kFirstOrder: 0.075,
+  kFirstOrder: 0,
   transCoef: 0.5,
   area: 2.54 * 10 ** -2,
   temp: 293.15
-}
+})

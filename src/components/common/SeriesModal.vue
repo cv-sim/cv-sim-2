@@ -43,7 +43,9 @@ const disableAdding = computed(() => {
           <label class="w-12">Color</label>
           <input type="color" v-model="color" />
         </div>
-        <button @click="addSeries()" :disabled="disableAdding" class="self-center">Add</button>
+        <button @click="addSeries()" :disabled="disableAdding" class="self-center mt-2">
+          Save
+        </button>
       </div>
     </div>
   </Transition>

@@ -5,7 +5,8 @@ export default {
     extend: {
       spacing: {
         112: '28rem',
-        128: '32rem'
+        128: '32rem',
+        'screen-95': '95vh'
       }
     }
   },

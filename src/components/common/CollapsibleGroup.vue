@@ -2,7 +2,7 @@
 import { ref, computed, watch } from 'vue'
 
 const props = defineProps({
-  modelValue: { type: Boolean, default: true },
+  modelValue: { type: Boolean, default: false },
   title: String
 })
 
