@@ -7,12 +7,12 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="flex flex-wrap gap-4">
+  <div class="flex max-md:flex-wrap gap-4">
     <label v-html="props.label" />
     <select
       :value="props.modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
-      class="w-48"
+      class="w-full"
     >
       <option
         v-for="(option, index) in options"

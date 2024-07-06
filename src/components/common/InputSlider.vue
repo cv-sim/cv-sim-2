@@ -14,7 +14,7 @@ function transformValue(value) {
 
 <template>
   <div class="flex max-sm:flex-col sm:gap-4">
-    <label class="w-80" v-html="props.label" />
+    <label class="sm:w-80" v-html="props.label" />
     <div class="flex gap-4 w-full">
       <input
         type="range"
