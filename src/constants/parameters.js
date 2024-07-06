@@ -8,6 +8,7 @@ export default Object.freeze({
   diffCoef: 10 ** -5,
   kStd: 1,
   kFirstOrder: 0,
+  kSecondOrder: 0,
   transCoef: 0.5,
   area: 2.54 * 10 ** -2,
   temp: 293.15

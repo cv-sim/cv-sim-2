@@ -12,7 +12,7 @@ const props = defineProps({
     <select
       :value="props.modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
-      class="w-full"
+      class="w-32"
     >
       <option
         v-for="(option, index) in options"

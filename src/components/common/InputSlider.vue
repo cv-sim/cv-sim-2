@@ -23,7 +23,7 @@ function transformValue(value) {
         :step="props.step"
         :value="modelValue"
         class="w-full"
-        @input="$emit('update:modelValue', $event.target.value)"
+        @input="$emit('update:modelValue', Number($event.target.value))"
       />
       <div>
         <input
@@ -33,7 +33,7 @@ function transformValue(value) {
           :max="props.max"
           :step="props.step"
           class="w-28 self-center"
-          @input="$emit('update:modelValue', $event.target.value)"
+          @input="$emit('update:modelValue', Number($event.target.value))"
         />
       </div>
     </div>

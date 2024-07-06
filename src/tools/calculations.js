@@ -11,7 +11,7 @@ const DEFAULT_DISTANCE_INCREMENTS = 50
 const DEFAULT_TIME_INCREMENTS = 200
 
 export function calculateCyclicVoltammogram(parameters, options = {}) {
-  const { elCount, diffCoef, kStd, kFirstOrder, transCoef, area, temp } = parameters
+  const { elCount, diffCoef, kStd, kFirstOrder, kSecondOrder, transCoef, area, temp } = parameters
 
   const scanRate = parameters.scanRate / 1000
   const vStd = parameters.vStd / 1000
@@ -19,7 +19,11 @@ export function calculateCyclicVoltammogram(parameters, options = {}) {
   const vSwitch = parameters.vSwitch / 1000
   const cStart = parameters.cStart / 1000
 
-  const { xCount = DEFAULT_DISTANCE_INCREMENTS, tCount = DEFAULT_TIME_INCREMENTS } = options
+  const {
+    xCount = DEFAULT_DISTANCE_INCREMENTS,
+    tCount = DEFAULT_TIME_INCREMENTS,
+    order = null
+  } = options
 
   const vRange = vSwitch - vStart
   const vInc = vRange / (tCount / 2)
@@ -71,14 +75,16 @@ export function calculateCyclicVoltammogram(parameters, options = {}) {
           const cr = array[i - 1][j + 1]
 
           let cNew = c + lambda * (cl - 2 * c + cr)
-          if (order === 1) {
+          if (Number(order) === 1) {
             cNew -= kFirstOrder * tInc * c
+          } else if (Number(order) === 2) {
+            cNew -= 2 * kSecondOrder * tInc * c ** 2
           }
 
           return cNew
         }
 
-        const cred = calcC(credArray, 1)
+        const cred = calcC(credArray, order)
         const crednr = calcC(crednrArray)
 
         coxArray[i][j] = calcC(coxArray)

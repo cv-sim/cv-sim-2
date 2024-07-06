@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, watch, onMounted, onUnmounted } from 'vue'
 
 const props = defineProps({
   modelValue: { type: Boolean, default: false },
@@ -10,10 +10,18 @@ const emit = defineEmits(['update:modelValue'])
 
 const visible = ref(props.modelValue)
 const collapsible = ref(null)
+const interval = ref(null)
+const height = ref(0)
 
-const height = computed(() => {
-  if (!collapsible.value) return 0
-  return `${collapsible.value.scrollHeight}px`
+onMounted(() => {
+  interval.value = setInterval(() => {
+    if (!collapsible.value) return
+    height.value = `${collapsible.value.scrollHeight}px`
+  }, 100)
+})
+
+onUnmounted(() => {
+  if (interval.value) clearInterval(interval.value)
 })
 
 watch(

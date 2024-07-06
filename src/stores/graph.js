@@ -9,6 +9,7 @@ export const useGraphStore = defineStore('graphStore', {
         default: {
           title: 'Demo',
           color: '#800000',
+          order: 0,
           parameters: { ...DEFAULT_PARAMETERS }
         }
       }
@@ -21,6 +22,7 @@ export const useGraphStore = defineStore('graphStore', {
       this.datasets[id] = {
         title,
         color,
+        order: 0,
         parameters: { ...DEFAULT_PARAMETERS }
       }
       this.selectedID = id
@@ -38,6 +40,7 @@ export const useGraphStore = defineStore('graphStore', {
         default: {
           title: 'Demo',
           color: '#800000',
+          order: 0,
           parameters: { ...DEFAULT_PARAMETERS }
         }
       }
@@ -45,7 +48,7 @@ export const useGraphStore = defineStore('graphStore', {
   },
   getters: {
     selectedDataset() {
-      return this.datasets[this.selectedID] || null
+      return this.datasets[this.selectedID] || {}
     },
     selectedParameters() {
       return this.datasets[this.selectedID]?.parameters || {}
