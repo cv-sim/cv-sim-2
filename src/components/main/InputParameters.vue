@@ -54,12 +54,20 @@ function reset() {
       </InputSelect>
     </div>
     <div class="flex flex-col gap-y-4 border-t-2 border-black p-4">
-      <div class="flex gap-4">
+      <div class="flex flex-wrap gap-4">
         <span class="font-bold">Input Parameters</span>
-        <button @click="toggleGroupVisibilities(true)" :disabled="allGroupsExpanded">
+        <button
+          @click="toggleGroupVisibilities(true)"
+          :disabled="allGroupsExpanded"
+          class="self-center"
+        >
           Expand All
         </button>
-        <button @click="toggleGroupVisibilities(false)" :disabled="allGroupsCollapsed">
+        <button
+          @click="toggleGroupVisibilities(false)"
+          :disabled="allGroupsCollapsed"
+          class="self-center"
+        >
           Collapse All
         </button>
       </div>
