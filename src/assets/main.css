@@ -10,7 +10,8 @@ h1 {
 
 select,
 input,
-button {
+button,
+.button {
   @apply border border-black rounded;
 }
 
@@ -18,11 +19,12 @@ input {
   @apply px-1;
 }
 
-button {
+button,
+.button {
   @apply bg-slate-300 transition-all px-4 text-nowrap;
 
   &:not(:disabled) {
-    @apply hover:bg-slate-400;
+    @apply hover:bg-slate-400 hover:cursor-pointer;
   }
 
   &:disabled {

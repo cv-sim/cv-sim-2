@@ -3,6 +3,7 @@ import { useGraphStore } from '@/stores/graph'
 import InputSlider from '@/components/common/InputSlider.vue'
 import InputSelect from '@/components/common/InputSelect.vue'
 import SeriesModal from '@/components/common/SeriesModal.vue'
+import CollapsibleGroup from '@/components/common/CollapsibleGroup.vue'
 import { computed, ref } from 'vue'
 
 const store = useGraphStore()
@@ -33,13 +34,15 @@ const seriesModalOpen = ref(false)
       </InputSelect>
     </div>
     <div class="flex flex-col gap-y-2 border-t-2 border-black p-4">
-      <InputSlider
-        label="Scan Rate (mV/s)"
-        min="0"
-        max="200"
-        step="1"
-        v-model="store.selectedParameters.scanRate"
-      />
+      <CollapsibleGroup title="Test">
+        <InputSlider
+          label="Scan Rate (mV/s)"
+          min="0"
+          max="200"
+          step="1"
+          v-model="store.selectedParameters.scanRate"
+        />
+      </CollapsibleGroup>
       <InputSlider
         label="Std. Reduction Potential (mV)"
         min="-750"
