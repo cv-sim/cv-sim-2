@@ -4,12 +4,30 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { Chart, registerables } from 'chart.js'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons'
+import {
+  faCaretUp,
+  faCaretDown,
+  faTrash,
+  faPlus,
+  faExpand,
+  faCompress,
+  faRotateLeft,
+  faFileExport
+} from '@fortawesome/free-solid-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
 
 import App from './App.vue'
 
-library.add(faCaretUp, faCaretDown)
+library.add(
+  faCaretUp,
+  faCaretDown,
+  faTrash,
+  faPlus,
+  faExpand,
+  faCompress,
+  faRotateLeft,
+  faFileExport
+)
 
 Chart.defaults.color = '#000000'
 Chart.defaults.font.size = 15

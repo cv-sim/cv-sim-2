@@ -44,10 +44,14 @@ function toggleGroupVisibilities(value) {
       <InputSelect label="<b>Series:</b>" v-model="store.selectedID" :options="seriesOptions">
         <template #after-select>
           <button @click="store.removeSeries(store.selectedID)" :disabled="store.count <= 1">
+            <FontAwesomeIcon icon="trash" class="mr-1" />
             Remove
           </button>
           <div>
-            <button @click="seriesModalOpen = !seriesModalOpen">Add New</button>
+            <button @click="seriesModalOpen = !seriesModalOpen">
+              <FontAwesomeIcon icon="plus" class="mr-1" />
+              Add New
+            </button>
             <SeriesModal @close="seriesModalOpen = false" :visible="seriesModalOpen" class="mt-1" />
           </div>
         </template>
@@ -62,6 +66,7 @@ function toggleGroupVisibilities(value) {
           :disabled="allGroupsExpanded"
           class="self-center"
         >
+          <FontAwesomeIcon icon="expand" class="mr-1" />
           Expand All
         </button>
         <button
@@ -69,10 +74,11 @@ function toggleGroupVisibilities(value) {
           :disabled="allGroupsCollapsed"
           class="self-center"
         >
+          <FontAwesomeIcon icon="compress" class="mr-1" />
           Collapse All
         </button>
       </div>
-      <CollapsibleGroup v-model="groupVisibilities.halfReaction" title="Half Reaction">
+      <CollapsibleGroup v-model="groupVisibilities.halfReaction" title="Half-Reaction">
         <InputSlider
           label="Std. Reduction Potential (mV)"
           min="-750"

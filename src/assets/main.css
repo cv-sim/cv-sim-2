@@ -10,8 +10,7 @@ h1 {
 
 select,
 input,
-button,
-.button {
+button {
   @apply border border-black rounded;
 }
 
@@ -23,8 +22,7 @@ input[type='range'] {
   accent-color: #800000;
 }
 
-button,
-.button {
+button {
   @apply bg-slate-300 transition-all px-4 text-nowrap;
 
   &:not(:disabled) {
@@ -32,7 +30,7 @@ button,
   }
 
   &:disabled {
-    @apply cursor-default bg-slate-200 text-slate-600 border-slate-600;
+    @apply cursor-default bg-opacity-70 text-slate-600 border-opacity-70;
   }
 }
 
