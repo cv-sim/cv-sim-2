@@ -40,12 +40,10 @@ watch(visible, (value) => emit('update:modelValue', value))
         }}
       </button>
     </slot>
-    <div
-      ref="collapsible"
-      class="collapsible flex flex-col gap-2 px-2"
-      :class="{ collapsed: !visible }"
-    >
-      <slot />
+    <div ref="collapsible" class="collapsible px-2" :class="{ collapsed: !visible }">
+      <div class="flex flex-col gap-2 pb-2">
+        <slot />
+      </div>
     </div>
   </div>
 </template>

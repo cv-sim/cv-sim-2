@@ -58,8 +58,8 @@ function toggleGroupVisibilities(value) {
       </InputSelect>
     </div>
     <hr />
-    <div class="flex flex-col gap-y-4">
-      <div class="flex flex-wrap gap-4">
+    <div class="flex flex-col gap-2">
+      <div class="flex flex-wrap gap-4 mb-2">
         <span class="font-bold">Input Parameters</span>
         <button
           @click="toggleGroupVisibilities(true)"

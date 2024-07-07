@@ -46,7 +46,8 @@ const disableAdding = computed(() => {
           <input type="color" v-model="color" />
         </div>
         <button @click="addSeries()" :disabled="disableAdding" class="self-center mt-2">
-          Save
+          <FontAwesomeIcon icon="check" class="mr-1" />
+          Confirm
         </button>
       </div>
     </div>

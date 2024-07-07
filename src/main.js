@@ -12,7 +12,8 @@ import {
   faExpand,
   faCompress,
   faRotateLeft,
-  faFileExport
+  faFileExport,
+  faCheck
 } from '@fortawesome/free-solid-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
 
@@ -26,7 +27,8 @@ library.add(
   faExpand,
   faCompress,
   faRotateLeft,
-  faFileExport
+  faFileExport,
+  faCheck
 )
 
 Chart.defaults.color = '#000000'
