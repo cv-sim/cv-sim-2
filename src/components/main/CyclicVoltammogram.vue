@@ -1,7 +1,8 @@
 <script setup>
 import { Scatter } from 'vue-chartjs'
 import { useGraphStore } from '@/stores/graph.js'
-import { reactive, computed } from 'vue'
+import { computed } from 'vue'
+import conventions from '@/constants/conventions'
 import { calculateCyclicVoltammogram } from '@/tools/calculations.js'
 
 const store = useGraphStore()
@@ -11,12 +12,15 @@ const data = computed(() => ({
     label: dataset.title,
     borderColor: dataset.color,
     backgroundColor: dataset.color,
-    data: calculateCyclicVoltammogram(dataset.parameters, { order: dataset.order }),
+    data: calculateCyclicVoltammogram(dataset.parameters, {
+      order: dataset.order,
+      convention: store.convention
+    }),
     order: id === store.selectedID ? 0 : 1
   }))
 }))
 
-const options = reactive({
+const options = computed(() => ({
   responsive: true,
   maintainAspectRatio: false,
   showLine: true,
@@ -45,7 +49,7 @@ const options = reactive({
       ticks: {
         callback: (value) => value.toFixed(3)
       },
-      reverse: true
+      reverse: store.convention === conventions.US
     },
     y: {
       title: {
@@ -57,7 +61,7 @@ const options = reactive({
       }
     }
   }
-})
+}))
 </script>
 
 <template>

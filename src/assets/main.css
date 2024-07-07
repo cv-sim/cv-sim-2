@@ -19,6 +19,10 @@ input {
   @apply px-1;
 }
 
+input[type='range'] {
+  accent-color: #800000;
+}
+
 button,
 .button {
   @apply bg-slate-300 transition-all px-4 text-nowrap;

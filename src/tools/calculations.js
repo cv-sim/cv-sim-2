@@ -1,8 +1,5 @@
-/**
- * @typedef InputParameters
- * @param {Number} scanRate
- * @param {Number} vStd
- */
+import mechanisms from '@/constants/mechanisms'
+import conventions from '@/constants/conventions'
 
 const GAS_CONSTANT = 8.314
 const FARADAY_CONSTANT = 96485
@@ -22,7 +19,8 @@ export function calculateCyclicVoltammogram(parameters, options = {}) {
   const {
     xCount = DEFAULT_DISTANCE_INCREMENTS,
     tCount = DEFAULT_TIME_INCREMENTS,
-    order = null
+    order = mechanisms.None,
+    convention = conventions.US
   } = options
 
   const vRange = vSwitch - vStart
@@ -63,7 +61,8 @@ export function calculateCyclicVoltammogram(parameters, options = {}) {
         const jox = joxNum / joxDenom
         const jred = -jox
 
-        dataset[i].y = -jox * elCount * FARADAY_CONSTANT * area
+        dataset[i].y =
+          -jox * elCount * FARADAY_CONSTANT * area * (convention === conventions.US ? 1 : -1)
 
         coxArray[i][j] = coxArray[i][1] + (jox * xInc) / diffCoef
         credArray[i][j] = credArray[i][1] + (jred * xInc) / diffCoef
@@ -75,9 +74,9 @@ export function calculateCyclicVoltammogram(parameters, options = {}) {
           const cr = array[i - 1][j + 1]
 
           let cNew = c + lambda * (cl - 2 * c + cr)
-          if (Number(order) === 1) {
+          if (order === mechanisms.EC) {
             cNew -= kFirstOrder * tInc * c
-          } else if (Number(order) === 2) {
+          } else if (order === mechanisms.EC2) {
             cNew -= 2 * kSecondOrder * tInc * c ** 2
           }
 

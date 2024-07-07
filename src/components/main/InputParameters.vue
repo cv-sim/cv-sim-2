@@ -25,6 +25,12 @@ const seriesOptions = computed(() =>
 )
 const allGroupsExpanded = computed(() => Object.values(groupVisibilities).every(Boolean))
 const allGroupsCollapsed = computed(() => Object.values(groupVisibilities).every((value) => !value))
+const mechanismOptions = computed(() =>
+  Object.entries(mechanisms).map(([key, value]) => ({
+    text: key,
+    value
+  }))
+)
 
 function toggleGroupVisibilities(value) {
   Object.keys(groupVisibilities).forEach((key) => (groupVisibilities[key] = value))
@@ -34,7 +40,7 @@ function toggleGroupVisibilities(value) {
 <template>
   <div class="flex flex-col bg-slate-100 border-2 border-black rounded">
     <div class="p-4">
-      <InputSelect label="<b>Series</b>" v-model="store.selectedID" :options="seriesOptions">
+      <InputSelect label="<b>Series:</b>" v-model="store.selectedID" :options="seriesOptions">
         <template #after-select>
           <button @click="store.removeSeries(store.selectedID)" :disabled="store.count <= 1">
             Remove
@@ -154,7 +160,7 @@ function toggleGroupVisibilities(value) {
         <InputSelect
           label="Mechanism"
           v-model="store.selectedDataset.order"
-          :options="mechanisms"
+          :options="mechanismOptions"
         />
         <InputSlider
           v-if="Number(store.selectedDataset.order) === 1"

@@ -8,7 +8,7 @@ const props = defineProps({
 
 <template>
   <div class="flex max-md:flex-wrap gap-4">
-    <label v-html="props.label" />
+    <label v-html="props.label" class="self-center" />
     <select
       :value="props.modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
