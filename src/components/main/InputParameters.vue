@@ -39,8 +39,8 @@ function toggleGroupVisibilities(value) {
 </script>
 
 <template>
-  <div class="flex flex-col bg-slate-100 border-2 border-black rounded">
-    <div class="p-4">
+  <div class="flex flex-col gap-4">
+    <div>
       <InputSelect label="<b>Series:</b>" v-model="store.selectedID" :options="seriesOptions">
         <template #after-select>
           <button @click="store.removeSeries(store.selectedID)" :disabled="store.count <= 1">
@@ -53,7 +53,8 @@ function toggleGroupVisibilities(value) {
         </template>
       </InputSelect>
     </div>
-    <div class="flex flex-col gap-y-4 border-t-2 border-black p-4">
+    <hr />
+    <div class="flex flex-col gap-y-4">
       <div class="flex flex-wrap gap-4">
         <span class="font-bold">Input Parameters</span>
         <button

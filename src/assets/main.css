@@ -45,3 +45,9 @@ button,
 .v-leave-to {
   opacity: 0;
 }
+
+hr {
+  border: none;
+  height: 2px;
+  background-color: black;
+}
