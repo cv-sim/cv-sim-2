@@ -47,7 +47,5 @@ button,
 }
 
 hr {
-  border: none;
-  height: 2px;
-  background-color: black;
+  @apply border-b-2 border-black;
 }
