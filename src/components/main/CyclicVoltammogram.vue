@@ -3,7 +3,6 @@ import { Scatter } from 'vue-chartjs'
 import { useGraphStore } from '@/stores/graph.js'
 import { computed } from 'vue'
 import conventions from '@/constants/conventions'
-import { calculateCyclicVoltammogram } from '@/tools/calculations.js'
 
 const store = useGraphStore()
 
@@ -12,10 +11,7 @@ const data = computed(() => ({
     label: dataset.title,
     borderColor: dataset.color,
     backgroundColor: dataset.color,
-    data: calculateCyclicVoltammogram(dataset.parameters, {
-      order: dataset.order,
-      convention: store.convention
-    }),
+    data: store.getCyclicVoltammogram(id),
     order: id === store.selectedID ? 0 : 1
   }))
 }))

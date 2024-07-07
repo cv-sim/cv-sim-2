@@ -1,10 +1,12 @@
 import { defineStore } from 'pinia'
 import mechanisms from '@/constants/mechanisms'
 import conventions from '@/constants/conventions'
+import { calculateCyclicVoltammogram } from '@/tools/calculations'
+import { exportCSV } from '@/tools/export'
 
 function getDefaultData() {
   return {
-    title: 'Demo',
+    title: 'Series 1',
     color: '#800000',
     order: mechanisms.None,
     parameters: {
@@ -52,9 +54,12 @@ export const useGraphStore = defineStore('graphStore', {
       delete this.datasets[id]
     },
     reset() {
-      this.convention = conventions.US
       this.selectedID = 'default'
       this.datasets = { default: getDefaultData() }
+    },
+    async export() {
+      const sheets = this.sheets
+      await exportCSV(sheets)
     }
   },
   getters: {
@@ -66,6 +71,24 @@ export const useGraphStore = defineStore('graphStore', {
     },
     count() {
       return Object.keys(this.datasets).length
+    },
+    getCyclicVoltammogram() {
+      return (id) => {
+        const dataset = this.datasets[id]
+
+        return calculateCyclicVoltammogram(dataset.parameters, {
+          order: dataset.order,
+          convention: this.convention
+        })
+      }
+    },
+    sheets() {
+      return Object.entries(this.datasets).map(([id, dataset]) => {
+        const raw = this.getCyclicVoltammogram(id)
+        const data = raw.map((point) => Object.values(point).join(','))
+
+        return { title: dataset.title, data: data.join('\n') }
+      })
     }
   }
 })

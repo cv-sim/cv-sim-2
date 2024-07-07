@@ -1,6 +1,6 @@
 <script setup>
 import { useGraphStore } from '@/stores/graph'
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 
 const props = defineProps({
   visible: Boolean
@@ -13,9 +13,11 @@ const store = useGraphStore()
 const name = ref('')
 const color = ref('')
 
+onMounted(() => reset)
+
 function reset() {
-  name.value = ''
-  color.value = ''
+  name.value = `Series ${store.count + 1}`
+  color.value = '#000000'
 }
 
 function addSeries() {

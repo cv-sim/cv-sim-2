@@ -12,10 +12,6 @@ const conventionOptions = computed(() =>
 )
 
 const store = useGraphStore()
-
-function reset() {
-  store.reset()
-}
 </script>
 
 <template>
@@ -23,7 +19,8 @@ function reset() {
     <h1 class="font-bold">Cyclic Voltammetry Simulator</h1>
     <div class="ml-auto flex gap-4">
       <InputSelect v-model="store.convention" :options="conventionOptions" label="Convention:" />
-      <button @click="reset()">Reset</button>
+      <button @click="() => store.reset()">Reset</button>
+      <button @click="() => store.export()">Export</button>
     </div>
   </div>
 </template>
