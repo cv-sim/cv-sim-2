@@ -14,7 +14,8 @@ const groupVisibilities = reactive({
   halfReaction: false,
   triangleWaveform: false,
   experimentalConditions: false,
-  ecMechanism: false
+  ecMechanism: false,
+  rotation: false
 })
 
 const seriesOptions = computed(() =>
@@ -177,6 +178,22 @@ function toggleGroupVisibilities(value) {
           max="1e7"
           step="1e2"
           v-model="store.selectedParameters.kSecondOrder"
+        />
+      </CollapsibleGroup>
+      <CollapsibleGroup v-model="groupVisibilities.rotation" title="Rotation">
+        <InputSlider
+          label="Rotation Rate (rpm)"
+          min="0"
+          max="750"
+          step="0.01"
+          v-model="store.selectedParameters.rotation"
+        />
+        <InputSlider
+          label="Kinematic Viscosity (cm<sup>2</sup>/s)"
+          min="0"
+          max="10"
+          step="0.01"
+          v-model="store.selectedParameters.viscosity"
         />
       </CollapsibleGroup>
     </div>

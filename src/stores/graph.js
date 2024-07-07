@@ -20,7 +20,9 @@ function getDefaultData() {
       kSecondOrder: 0,
       transCoef: 0.5,
       area: 2.54 * 10 ** -2,
-      temp: 293.15
+      temp: 293.15,
+      rotation: 0,
+      viscosity: 1
     }
   }
 }

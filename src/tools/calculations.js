@@ -7,14 +7,23 @@ const FARADAY_CONSTANT = 96485
 const DEFAULT_DISTANCE_INCREMENTS = 50
 const DEFAULT_TIME_INCREMENTS = 200
 
+function clamp(value, min, max) {
+  if (value > max) return max
+  if (value < min) return min
+
+  return value
+}
+
 export function calculateCyclicVoltammogram(parameters, options = {}) {
-  const { elCount, diffCoef, kStd, kFirstOrder, kSecondOrder, transCoef, area, temp } = parameters
+  const { elCount, diffCoef, kStd, kFirstOrder, kSecondOrder, transCoef, area, temp, viscosity } =
+    parameters
 
   const scanRate = parameters.scanRate / 1000
   const vStd = parameters.vStd / 1000
   const vStart = parameters.vStart / 1000
   const vSwitch = parameters.vSwitch / 1000
   const cStart = parameters.cStart / 1000
+  const rotation = parameters.rotation * (Math.PI / 30)
 
   const {
     xCount = DEFAULT_DISTANCE_INCREMENTS,
@@ -69,9 +78,20 @@ export function calculateCyclicVoltammogram(parameters, options = {}) {
         crednrArray[i][j] = credArray[i][j]
       } else {
         const calcC = (array, order = null) => {
-          const c = array[i - 1][j]
-          const cl = array[i - 1][j - 1]
-          const cr = array[i - 1][j + 1]
+          const denom =
+            1 -
+            0.51 *
+              Math.sqrt((rotation ** 3 * diffCoef * tTotal) / viscosity) *
+              (j / Math.sqrt(diffCoef * lambda))
+
+          const jAdjRaw = j / denom
+          const rightMul = jAdjRaw - Math.floor(jAdjRaw)
+          const leftMul = 1 - rightMul
+          const jAdj = clamp(Math.floor(jAdjRaw), 1, xCount - 3)
+
+          const c = leftMul * array[i - 1][jAdj] + rightMul * array[i - 1][jAdj + 1]
+          const cl = leftMul * array[i - 1][jAdj - 1] + rightMul * array[i - 1][jAdj]
+          const cr = leftMul * array[i - 1][jAdj + 1] + rightMul * array[i - 1][jAdj + 2]
 
           let cNew = c + lambda * (cl - 2 * c + cr)
           if (order === mechanisms.EC) {
