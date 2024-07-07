@@ -11,7 +11,7 @@ const data = computed(() => ({
     label: dataset.title,
     borderColor: dataset.color,
     backgroundColor: dataset.color,
-    data: store.getCyclicVoltammogram(id),
+    data: store.selectedCyclicVoltammogram.dataset,
     order: id === store.selectedID ? 0 : 1
   }))
 }))

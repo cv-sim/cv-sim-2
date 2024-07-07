@@ -74,6 +74,13 @@ export const useGraphStore = defineStore('graphStore', {
     count() {
       return Object.keys(this.datasets).length
     },
+    selectedCyclicVoltammogram() {
+      return calculateCyclicVoltammogram(this.selectedDataset.parameters, {
+        order: this.selectedDataset.order,
+        convention: this.convention,
+        species: this.selectedDataset.species
+      })
+    },
     getCyclicVoltammogram() {
       return (id) => {
         const dataset = this.datasets[id]
@@ -87,7 +94,7 @@ export const useGraphStore = defineStore('graphStore', {
     },
     sheets() {
       return Object.entries(this.datasets).map(([id, dataset]) => {
-        const raw = this.getCyclicVoltammogram(id)
+        const raw = this.getCyclicVoltammogram(id).dataset
         const data = raw.map((point) => Object.values(point).join(','))
 
         return { title: dataset.title, data: data.join('\n') }

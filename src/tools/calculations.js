@@ -52,12 +52,14 @@ export function calculateCyclicVoltammogram(parameters, options = {}) {
   const dataset = Array(tCount + 1)
     .fill(0)
     .map(() => ({ x: 0, y: 0 }))
+  const times = []
   const coxArray = Array(tCount + 1).fill(Array(xCount).fill(0))
   const credArray = Array(tCount + 1).fill(Array(xCount).fill(0))
   const crednrArray = Array(tCount + 1).fill(Array(xCount).fill(0))
   const cprodArray = Array(tCount + 1).fill(Array(xCount).fill(0))
 
   for (let i = 0; i <= tCount; i++) {
+    times.push(i * tInc)
     const tHalf = tCount / 2
     const v = i <= tHalf ? vStart + i * vInc : vSwitch - (i - tHalf) * vInc
     dataset[i].x = v
@@ -122,5 +124,5 @@ export function calculateCyclicVoltammogram(parameters, options = {}) {
     }
   }
 
-  return dataset
+  return { dataset, times }
 }
