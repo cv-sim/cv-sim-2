@@ -30,7 +30,7 @@ button {
   }
 
   &:disabled {
-    @apply cursor-default bg-opacity-70 text-slate-600 border-opacity-70;
+    @apply cursor-default bg-opacity-50 text-slate-600 border-opacity-50;
   }
 }
 

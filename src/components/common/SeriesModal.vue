@@ -46,7 +46,7 @@ const disableAdding = computed(() => {
           <input type="color" v-model="color" />
         </div>
         <div class="flex justify-center gap-2">
-          <button @click="emit('close')" :disabled="disableAdding" class="self-center mt-2">
+          <button @click="emit('close')" class="self-center mt-2">
             <FontAwesomeIcon icon="ban" class="mr-1" />
             Cancel
           </button>
