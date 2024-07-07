@@ -45,10 +45,16 @@ const disableAdding = computed(() => {
           <label class="w-12">Color</label>
           <input type="color" v-model="color" />
         </div>
-        <button @click="addSeries()" :disabled="disableAdding" class="self-center mt-2">
-          <FontAwesomeIcon icon="check" class="mr-1" />
-          Confirm
-        </button>
+        <div class="flex justify-center gap-2">
+          <button @click="emit('close')" :disabled="disableAdding" class="self-center mt-2">
+            <FontAwesomeIcon icon="ban" class="mr-1" />
+            Cancel
+          </button>
+          <button @click="addSeries()" :disabled="disableAdding" class="self-center mt-2">
+            <FontAwesomeIcon icon="check" class="mr-1" />
+            Confirm
+          </button>
+        </div>
       </div>
     </div>
   </Transition>
