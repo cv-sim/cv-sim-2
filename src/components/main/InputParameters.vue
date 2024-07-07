@@ -1,6 +1,7 @@
 <script setup>
 import { useGraphStore } from '@/stores/graph'
 import mechanisms from '@/constants/mechanisms'
+import species from '@/constants/species'
 import InputSlider from '@/components/common/InputSlider.vue'
 import InputSelect from '@/components/common/InputSelect.vue'
 import SeriesModal from '@/components/common/SeriesModal.vue'
@@ -29,6 +30,12 @@ const allGroupsCollapsed = computed(() => Object.values(groupVisibilities).every
 const mechanismOptions = computed(() =>
   Object.entries(mechanisms).map(([key, value]) => ({
     text: key,
+    value
+  }))
+)
+const speciesOptions = computed(() =>
+  Object.entries(species).map(([key, value]) => ({
+    text: `${key[0].toUpperCase()}${key.substring(1).toLowerCase()}`,
     value
   }))
 )
@@ -117,18 +124,18 @@ function toggleGroupVisibilities(value) {
       </CollapsibleGroup>
       <CollapsibleGroup v-model="groupVisibilities.triangleWaveform" title="Triangle Waveform">
         <InputSlider
-          label="Starting Potential (mV)"
+          label="Upper Potential (mV)"
           min="-1000"
           max="1000"
           step="0.01"
-          v-model="store.selectedParameters.vStart"
+          v-model="store.selectedParameters.vUpper"
         />
         <InputSlider
-          label="Switching Potential (mV)"
+          label="Lower Potential (mV)"
           min="-1000"
           max="1000"
           step="0.01"
-          v-model="store.selectedParameters.vSwitch"
+          v-model="store.selectedParameters.vLower"
         />
         <InputSlider
           label="Scan Rate (mV/s)"
@@ -142,6 +149,11 @@ function toggleGroupVisibilities(value) {
         v-model="groupVisibilities.experimentalConditions"
         title="Experimental Conditions"
       >
+        <InputSelect
+          label="Species in Solution"
+          :options="speciesOptions"
+          v-model="store.selectedDataset.species"
+        />
         <InputSlider
           label="Initial Concentration (M)"
           min="0"

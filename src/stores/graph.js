@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import mechanisms from '@/constants/mechanisms'
 import conventions from '@/constants/conventions'
+import species from '@/constants/species'
 import { calculateCyclicVoltammogram } from '@/tools/calculations'
 import { exportCSV } from '@/tools/export'
 
@@ -8,12 +9,13 @@ function getDefaultData() {
   return {
     title: 'Series 1',
     color: '#800000',
-    order: mechanisms.None,
+    species: species.OXIDIZED,
+    order: mechanisms.E,
     parameters: {
       scanRate: 40,
       vStd: 13,
-      vStart: 200,
-      vSwitch: -300,
+      vUpper: 200,
+      vLower: -300,
       elCount: 1,
       cStart: 6.1 * 10 ** -5,
       diffCoef: 10 ** -5,
@@ -78,7 +80,8 @@ export const useGraphStore = defineStore('graphStore', {
 
         return calculateCyclicVoltammogram(dataset.parameters, {
           order: dataset.order,
-          convention: this.convention
+          convention: this.convention,
+          species: dataset.species
         })
       }
     },

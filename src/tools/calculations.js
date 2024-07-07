@@ -1,5 +1,6 @@
 import mechanisms from '@/constants/mechanisms'
 import conventions from '@/constants/conventions'
+import species from '@/constants/species'
 
 const GAS_CONSTANT = 8.314
 const FARADAY_CONSTANT = 96485
@@ -20,19 +21,24 @@ export function calculateCyclicVoltammogram(parameters, options = {}) {
 
   const scanRate = parameters.scanRate / 1000
   const vStd = parameters.vStd / 1000
-  const vStart = parameters.vStart / 1000
-  const vSwitch = parameters.vSwitch / 1000
+  const vUpper = parameters.vUpper / 1000
+  const vLower = parameters.vLower / 1000
   const cStart = parameters.cStart / 1000
   const rotation = parameters.rotation * (Math.PI / 30)
 
   const {
     xCount = DEFAULT_DISTANCE_INCREMENTS,
     tCount = DEFAULT_TIME_INCREMENTS,
-    order = mechanisms.None,
-    convention = conventions.US
+    order = mechanisms.E,
+    convention = conventions.US,
+    species: selectedSpecies = species.OXIDIZED
   } = options
 
-  const vRange = vSwitch - vStart
+  const isOxidized = selectedSpecies === species.OXIDIZED
+  const vStart = isOxidized ? vUpper : vLower
+  const vSwitch = isOxidized ? vLower : vUpper
+
+  let vRange = vSwitch - vStart
   const vInc = vRange / (tCount / 2)
 
   const tTotal = Math.abs((2 * vRange) / scanRate)
@@ -62,8 +68,10 @@ export function calculateCyclicVoltammogram(parameters, options = {}) {
 
     for (let j = xCount - 1; j >= 0; j--) {
       if (i === 0 || j === xCount - 1) {
-        coxArray[i][j] = cStart
-        credArray[i][j] = crednrArray[i][j] = 0
+        const startOxidized = selectedSpecies === species.OXIDIZED
+        coxArray[i][j] = startOxidized ? cStart : 0
+        credArray[i][j] = startOxidized ? 0 : cStart
+        crednrArray[i][j] = 0
       } else if (j === 0) {
         const joxNum = kb * credArray[i][1] - kf * coxArray[i][1]
         const joxDenom = 1 + ((kf + kb) * xInc) / diffCoef
