@@ -1,7 +1,7 @@
 <script setup>
 import { Scatter } from 'vue-chartjs'
 import { useGraphStore } from '@/stores/graph.js'
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import conventions from '@/constants/conventions'
 
 const store = useGraphStore()
@@ -45,8 +45,8 @@ const options = computed(() => ({
       annotations: {
         point1: {
           type: 'point',
-          xValue: timesMap.value[time.value]?.x,
-          yValue: timesMap.value[time.value]?.y,
+          xValue: timesMap.value[store.time]?.x,
+          yValue: timesMap.value[store.time]?.y,
           radius: 5
         }
       }
@@ -81,20 +81,18 @@ const timesMap = computed(() =>
     {}
   )
 )
-const times = computed(() => store.selectedCyclicVoltammogram.map((point) => point.t))
 const timeIncrements = computed(() => {
-  const mod = (times.value.length - 1) / 10
-  return times.value.reduce((acc, time, index) => {
+  const mod = (store.times.length - 1) / 10
+  return store.times.reduce((acc, time, index) => {
     if (index % mod === 0) acc.push(time)
 
     return acc
   }, [])
 })
 
-const time = ref(times.value[0])
-const minTime = computed(() => times.value[0])
-const maxTime = computed(() => times.value[times.value.length - 1])
-const incTime = computed(() => times.value[1] - times.value[0])
+const minTime = computed(() => store.times[0])
+const maxTime = computed(() => store.times[store.times.length - 1])
+const incTime = computed(() => store.times[1] - store.times[0])
 </script>
 
 <template>
@@ -112,7 +110,7 @@ const incTime = computed(() => times.value[1] - times.value[0])
         :max="maxTime"
         :min="minTime"
         :step="incTime"
-        v-model="time"
+        v-model="store.time"
         list="time"
       />
       <datalist id="time">
@@ -122,7 +120,7 @@ const incTime = computed(() => times.value[1] - times.value[0])
         id="graph-time"
         class="w-24"
         type="number"
-        v-model="time"
+        v-model="store.time"
         :min="minTime"
         :max="maxTime"
         :step="incTime"

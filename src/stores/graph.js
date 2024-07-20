@@ -38,7 +38,8 @@ export const useGraphStore = defineStore('graphStore', {
       selectedID: 'default',
       datasets: {
         default: getDefaultData()
-      }
+      },
+      time: 0
     }
   },
   actions: {
@@ -58,6 +59,7 @@ export const useGraphStore = defineStore('graphStore', {
     reset() {
       this.selectedID = 'default'
       this.datasets = { default: getDefaultData() }
+      this.time = 0
     },
     async export() {
       const sheets = this.sheets
@@ -99,6 +101,9 @@ export const useGraphStore = defineStore('graphStore', {
 
         return { title: dataset.title, data: data.join('\n') }
       })
+    },
+    times() {
+      return this.selectedCyclicVoltammogram.map((point) => point.t)
     }
   }
 })
