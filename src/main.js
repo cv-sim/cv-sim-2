@@ -3,6 +3,7 @@ import './assets/main.css'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { Chart, registerables } from 'chart.js'
+import annotationPlugin from 'chartjs-plugin-annotation'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
   faCaretUp,
@@ -35,6 +36,7 @@ library.add(
 
 Chart.defaults.color = '#000000'
 Chart.defaults.font.size = 15
+Chart.register(annotationPlugin)
 Chart.register(...registerables)
 
 const app = createApp(App)

@@ -94,7 +94,7 @@ export const useGraphStore = defineStore('graphStore', {
     },
     sheets() {
       return Object.entries(this.datasets).map(([id, dataset]) => {
-        const raw = this.getCyclicVoltammogram(id).dataset
+        const raw = this.getCyclicVoltammogram(id)
         const data = raw.map((point) => Object.values(point).join(','))
 
         return { title: dataset.title, data: data.join('\n') }
