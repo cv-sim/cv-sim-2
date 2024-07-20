@@ -38,12 +38,12 @@ const disableAdding = computed(() => {
     <div v-if="props.visible" class="border border-black bg-white rounded absolute">
       <div class="flex flex-col gap-2 p-4">
         <div class="flex gap-2">
-          <label class="w-12">Name</label>
-          <input v-model="name" />
+          <label for="series-name" class="w-12">Name</label>
+          <input id="series-name" v-model="name" />
         </div>
         <div class="flex gap-2">
-          <label class="w-12">Color</label>
-          <input type="color" v-model="color" />
+          <label for="series-color" class="w-12">Color</label>
+          <input id="series-color" type="color" v-model="color" />
         </div>
         <div class="flex justify-center gap-2">
           <button @click="emit('close')" class="self-center mt-2">

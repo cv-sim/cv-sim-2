@@ -45,8 +45,8 @@ const options = computed(() => ({
       annotations: {
         point1: {
           type: 'point',
-          xValue: timesMap.value[time.value].x,
-          yValue: timesMap.value[time.value].y,
+          xValue: timesMap.value[time.value]?.x,
+          yValue: timesMap.value[time.value]?.y,
           radius: 5
         }
       }

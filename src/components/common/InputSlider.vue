@@ -1,4 +1,6 @@
 <script setup>
+import { ref } from 'vue'
+
 const props = defineProps({
   modelValue: [String, Number],
   label: String,
@@ -7,6 +9,8 @@ const props = defineProps({
   step: [String, Number]
 })
 
+const id = ref(Math.random().toString(36).substring(2, 7))
+
 function transformValue(value) {
   return Number(Number(value).toExponential(5))
 }
@@ -14,7 +18,7 @@ function transformValue(value) {
 
 <template>
   <div class="flex max-sm:flex-col sm:gap-4">
-    <label class="sm:w-96 content-center" v-html="props.label" />
+    <label :for="id" class="sm:w-96 content-center" v-html="props.label" />
     <div class="flex gap-4 w-full">
       <input
         type="range"
@@ -27,6 +31,7 @@ function transformValue(value) {
       />
       <div>
         <input
+          :id="id"
           type="number"
           :value="transformValue(modelValue)"
           :min="props.min"
